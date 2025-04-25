@@ -11,6 +11,20 @@ from rich import print
 def download_attachments_by_message_id(
     mail_server, username, password, message_id, download_folder
 ) -> list[str]:
+    """
+    Download attachments from a Gmail message by message_id to a specified download_folder.
+    Args:
+        mail_server (str): The IMAP server address.
+        username (str): The email account username.
+        password (str): The email account password.
+        message_id (str): The message ID of the email to download attachments from.
+        download_folder (str): The folder to save the downloaded attachments.
+    Returns:
+        list[str]: A list of file paths of the downloaded attachments.
+    Raises:
+        ValueError: If the message ID is not a valid hexadecimal string.
+        imaplib.IMAP4.error: If there is an error with the IMAP connection.
+    """
     try:
         message_id_int = int(message_id, 16)
 
@@ -82,7 +96,7 @@ def download_attachments_tool(
     message_id: str, download_folder="./attachments"
 ) -> list[str]:
     """
-    Download attachments from a Gmail message by message_id
+    Download attachments from a Gmail message by message_id to a specified download_folder.
     """
 
     mail_server = os.getenv("GMAIL_IMAP_SERVER", "imap.gmail.com")
